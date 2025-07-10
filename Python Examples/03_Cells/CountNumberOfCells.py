@@ -1,12 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
 
 inputFile = "./Demos/Data/Template_Xls_4.xlsx"
 outputFile = "CountNumberOfCells.txt"
@@ -21,5 +20,5 @@ content = []
 #Get the number of cells.
 content.append("Number of Cells: " + str(sheet.Cells.Length))
 #Save to file.
-File.AppendAllText(outputFile, content)
+AppendAllText(outputFile, content)
 

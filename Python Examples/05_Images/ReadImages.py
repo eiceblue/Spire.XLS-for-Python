@@ -1,8 +1,8 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 inputFile = "./Demos/Data/ReadImages.xlsx"
-outputFile = "ReadImages.jpg"
+outputFile = "ReadImages.png"
 
 #Create a Workbook
 workbook = Workbook()
@@ -13,6 +13,6 @@ sheet = workbook.Worksheets[0]
 #Get the first image
 pic = sheet.Pictures[0]
 #save
-pic.Picture.Save(outputFile, ImageFormat.get_Jpeg())
+pic.Picture.Save(outputFile)
 workbook.Dispose()
 

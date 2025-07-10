@@ -1,12 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def WriteAllBytes(fname:str,data):
+    fp = open(fname,"wb")
+    for d in data:
+        fp.write(d)
+    fp.close()
 
 inputFile = "./Demos/Data/ExtractOle2.xlsx"
 outputFile1 = "ExtractOLEObjects.docx"
@@ -23,7 +22,7 @@ if sheet.HasOleObjects:
         type = obj.ObjectType
             #Word document
         if type is OleObjectType.WordDocument:
-            File.WriteAllBytes(outputFile1, obj.OleData)
+            WriteAllBytes(outputFile1, obj.OleData)
 workbook.Dispose()
 
 
@@ -37,7 +36,7 @@ if sheet.HasOleObjects:
         type = obj.ObjectType
             #PDF document
         if type is OleObjectType.AdobeAcrobatDocument:
-            File.WriteAllBytes(outputFile2, obj.OleData)
+            WriteAllBytes(outputFile2, obj.OleData)
 workbook.Dispose()
 
 
@@ -51,6 +50,6 @@ if sheet.HasOleObjects:
         type = obj.ObjectType
             #PowerPoint document
         if type is OleObjectType.PowerPointSlide:
-            File.WriteAllBytes(outputFile3, obj.OleData)
+            WriteAllBytes(outputFile3, obj.OleData)
 workbook.Dispose()
 

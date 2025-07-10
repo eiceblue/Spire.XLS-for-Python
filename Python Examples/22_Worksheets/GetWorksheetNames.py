@@ -1,13 +1,12 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
-
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
+	
 inputFile = "./Demos/Data/WorksheetSample3.xlsx"
 outputFile = "OutputGetWorksheetNames.txt"
 
@@ -18,6 +17,6 @@ sb = []
 for sheet in workbook.Worksheets:
     sb.append(sheet.Name)
 #Save the documen
-File.AppendAllText(outputFile, sb)
+AppendAllText(outputFile, sb)
 workbook.Dispose()
 

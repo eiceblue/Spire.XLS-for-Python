@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/Template_Xls_1.xlsx"
@@ -22,7 +22,7 @@ chart1.TopRow = 11
 chart1.RightColumn = 8
 chart1.BottomRow = 33
 #Add picture as background.
-chart1.ChartArea.Fill.CustomPicture(Image.FromFile("./Demos/Data/Background.png"), "None")
+chart1.ChartArea.Fill.CustomPicture(Stream("./Demos/Data/Background.png"), "None")
 chart1.ChartArea.Fill.Tile = False
 #Set the image offset.  
 chart1.ChartArea.Fill.PicStretch.Left = 20

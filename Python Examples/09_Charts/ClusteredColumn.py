@@ -1,4 +1,4 @@
-﻿from spire.common import *
+﻿from spire.xls.common import *
 from spire.xls import *
 
 def CreateChartData(sheet):

@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/ChartToImage.xlsx"
@@ -10,7 +10,7 @@ workbook = Workbook()
 workbook.LoadFromFile(inputFile)
 #Save chart as image
 image = workbook.SaveChartAsImage(workbook.Worksheets[0], 0)
-image.Save(outputFile, ImageFormat.get_Png())
+image.Save(outputFile)
 workbook.Dispose()
 image.Dispose()
 

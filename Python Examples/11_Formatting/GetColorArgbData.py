@@ -1,11 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
+
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
 
 inputFile = "./Demos/Data/templateAz.xlsx"
 outputFile = "GetColorArgbData.txt"
@@ -26,5 +26,5 @@ strB.append("The font color of B3: ARGB=({0},{1},{2},{3})".format(color2.A, colo
 color3 = sheet.Range["B4"].Style.Font.Color
 strB.append("The font color of B4: ARGB=({0},{1},{2},{3})".format(color3.A, color3.R, color3.G, color3.B))
 #Save to file
-File.AppendAllText(outputFile, strB)
+AppendAllText(outputFile, strB)
 workbook.Dispose()

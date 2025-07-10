@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/ShapeToImage.xlsx"
@@ -14,6 +14,6 @@ sheet1 = wb.Worksheets[0]
 shape = sheet1.PrstGeomShapes[0] if isinstance(sheet1.PrstGeomShapes[0], XlsShape) else None
 #Save the shape to a image
 img = shape.SaveToImage()
-img.Save(outputFile, ImageFormat.get_Png())
+img.Save(outputFile)
 wb.Dispose()
 

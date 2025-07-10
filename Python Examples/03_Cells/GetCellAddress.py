@@ -1,12 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
 
 inputFile = "./Demos/Data/ExcelSample_N1.xlsx"
 outputFile = "GetCellAddress.txt"
@@ -32,6 +31,6 @@ builder.append("Address of entire column of the range: " + entireColAddress)
 #Get the address of the entire row of range
 entireRowAddress = range.EntireRow.RangeAddressLocal
 builder.append("Address of entire row of the range " + entireRowAddress)
-File.AppendAllText(outputFile, builder)
+AppendAllText(outputFile, builder)
 
 

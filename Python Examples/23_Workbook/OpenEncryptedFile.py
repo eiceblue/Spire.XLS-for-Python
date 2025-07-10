@@ -1,12 +1,12 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
+	
 
 inputFile = "./Demos/Data/EncryptedFile.xlsx"
 outputFile = "OpenEncryptedFile.txt"
@@ -24,10 +24,10 @@ while i < len(passwords):
         #Load the document
         workbook.LoadFromFile(inputFile)
         builder.append("Password = " + passwords[i] + " is correct." + " The encrypted Excel file opened successfully!")
-    except ArgumentError as ex:
+    except SpireException as ex:
         builder.append("Password = " + passwords[i] + "  is not correct")
     i += 1
 #Save to txt file
-File.AppendAllText(outputFile, builder)
+AppendAllText(outputFile, builder)
 
 

@@ -1,12 +1,12 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
+	
 
 inputFile = "./Demos/Data/AccessDocumentProperties.xlsx"
 outputFile = "AccessDocumentProperties.txt"
@@ -28,6 +28,6 @@ property2 = properties[0]
 obj2 = property2.Value
 builder.append(property2.Name + " " + String(obj2).Value)
 #Save to txt file
-File.AppendAllText(outputFile, builder)
+AppendAllText(outputFile, builder)
 workbook.Dispose()
 

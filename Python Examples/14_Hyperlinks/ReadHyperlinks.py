@@ -1,13 +1,10 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
-
+def AppendText(fname:str,text:str):
+    fp = open(fname,"w")
+    fp.write(text + "\n")
+    fp.close()
 inputFile = "./Demos/Data/ReadHyperlinks.xlsx"
 outputFile = "ReadHyperlinks.txt"
 
@@ -18,6 +15,6 @@ workbook.LoadFromFile(inputFile)
 sheet = workbook.Worksheets[0]
 address1 = sheet.HyperLinks[0].Address
 address2 = sheet.HyperLinks[1].Address
-File.AppendText(outputFile, address1 + "\r\n" + address2)
+AppendText(outputFile, address1 + "\r\n" + address2)
 workbook.Dispose()
 

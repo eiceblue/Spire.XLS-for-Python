@@ -1,13 +1,20 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from TestUtil.Directory import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
+
+def Exists(pname:str):
+    exists = os.path.exists(pname)
+    return exists
+
+def CreateDirectory(pname:str):
+    if os.path.exists(pname) :
+        return
+    os.makedirs(pname)
 
 inputFile = "./Demos/Data/Template_Xls_5.xlsx"
 outputFile = "ExtractTextImageFromShape.txt"
@@ -24,12 +31,12 @@ shape1 = sheet.PrstGeomShapes[2]
 s = shape1.Text
 sb = []
 sb.append("The text in the third shape is: " + s)
-File.AppendAllText(outputFile, sb)
+AppendAllText(outputFile, sb)
 workbook.Dispose()
 
 
-if Directory.Exists(outputFile_i) == False:
-    Directory.CreateDirectory(outputFile_i)
+if Exists(outputFile_i) == False:
+    CreateDirectory(outputFile_i)
 #Create a workbook.
 workbook = Workbook()
 #Load the file from disk.

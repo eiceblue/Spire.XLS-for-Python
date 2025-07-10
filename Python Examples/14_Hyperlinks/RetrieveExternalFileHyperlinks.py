@@ -1,12 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
 
 inputFile = "./Demos/Data/RetrieveExternalFileHyperlinks.xlsx"
 outputFile = "RetrieveExternalFileHyperlinks.txt"
@@ -24,7 +23,7 @@ for item in sheet.HyperLinks:
     sheetName = item.Range.WorksheetName
     range = item.Range
     content.append("Cell[{0},{1}] in sheet \"" + sheetName + "\" contains File URL: {2}".format(range.Row, range.Column, address))
-File.AppendAllText(outputFile, content)
+AppendAllText(outputFile, content)
 #Save to file
 #workbook.SaveToFile(outputFile, ExcelVersion.Version2010)
 workbook.Dispose()

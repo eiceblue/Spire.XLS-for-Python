@@ -1,8 +1,8 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
-def GenerateImage( fileName):
+def GenerateImage(fileName):
         book = Workbook()
         book.LoadFromFile(fileName)
         book.Worksheets[0].PageSetup.LeftMargin = 0
@@ -19,9 +19,7 @@ ws = workbook.Worksheets[0]
 ws.Range["A1"].Text = "Here is an OLE Object."
 #insert OLE object
 image = GenerateImage(inputFile)
-with Stream() as stream:
-    image.Save(stream,ImageFormat.get_Png())
-    oleObject = ws.OleObjects.Add(inputFile, stream, OleLinkType.Embed)
+oleObject = ws.OleObjects.Add(inputFile, image, OleLinkType.Embed)
 oleObject.Location = ws.Range["B4"]
 oleObject.ObjectType = OleObjectType.ExcelWorksheet
 #save the file

@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/SpireXls.png"
@@ -24,7 +24,7 @@ arrow = sheet.PrstGeomShapes.AddPrstGeomShape(10, 2, 100, 100, PrstGeomShapeType
 #Add a cloud shape.
 cloud = sheet.PrstGeomShapes.AddPrstGeomShape(10, 5, 100, 100, PrstGeomShapeType.Cloud)
 #Fill the cloud with custom picture
-cloud.Fill.CustomPicture(Image.FromFile(inputFile), "SpireXls.png")
+cloud.Fill.CustomPicture(Stream(inputFile), "SpireXls.png")
 cloud.Fill.FillType = ShapeFillType.Picture
 #Save to file.
 workbook.SaveToFile(outputFile, ExcelVersion.Version2013)

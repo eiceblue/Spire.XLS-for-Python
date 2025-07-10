@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/Logo.png"
@@ -12,11 +12,8 @@ sheet.Range["C6"].Text = "E-iceblue"
 #Add the comment
 comment = sheet.Range["C6"].AddComment()
 #Load the image file
-image = Image.FromFile(inputFile)
+image =  Stream(inputFile)
 comment.Fill.CustomPicture(image, "logo.png")
-#Set the height and width of comment
-comment.Height = image.Height
-comment.Width = image.Width
 comment.Visible = True
 workbook.SaveToFile(outputFile, ExcelVersion.Version2010)
 workbook.Dispose()

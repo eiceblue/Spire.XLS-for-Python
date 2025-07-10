@@ -5,7 +5,7 @@ rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 from TestUtil.File import *
 from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 

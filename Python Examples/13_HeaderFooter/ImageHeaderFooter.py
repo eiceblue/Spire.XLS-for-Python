@@ -1,5 +1,5 @@
 ﻿from spire.xls import *
-from spire.common import *
+from spire.xls.common import *
 
 
 inputFile = "./Demos/Data/ImageHeaderFooter.xlsx"
@@ -13,7 +13,7 @@ workbook.LoadFromFile(inputFile)
 #Get the first sheet
 sheet = workbook.Worksheets[0]
 #Load an image from disk
-image = Image.FromFile(inputImage)
+image = Stream(inputImage)
 #Set the image header
 sheet.PageSetup.LeftHeaderImage = image
 sheet.PageSetup.LeftHeader = "&G"

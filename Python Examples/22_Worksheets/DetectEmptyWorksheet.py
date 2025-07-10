@@ -1,12 +1,11 @@
-﻿import os
-import sys
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
-from TestUtil.File import *
-from spire.xls import *
-from spire.common import *
+﻿from spire.xls import *
+from spire.xls.common import *
 
+def AppendAllText(fname:str,text:List[str]):
+    fp = open(fname,"w")
+    for s in text:
+        fp.write(s + "\n")
+    fp.close()
 
 inputFile = "./Demos/Data/ReadImages.xlsx"
 outputFile = "DetectEmptyWorksheet.txt"
@@ -28,5 +27,5 @@ result = "The first worksheet is empty or not: " + str(detect1) + "\r\nThe secon
 #Add result string to StringBuilder
 content.append(result)
 #Save the document
-File.AppendAllText(outputFile, content)
+AppendAllText(outputFile, content)
 workbook.Dispose()

@@ -1,23 +1,30 @@
-﻿from spire.xls import *
-from spire.common import *
+from spire.xls import *
+from spire.xls.common import *
 
 
-outputFile = "UsePredefinedStyles.xlsx"
+outputFile = "./Demos/UsePredefinedStyles.xlsx"
 
+#create a workbook
 workbook = Workbook()
-#Get the first sheet
-sheet = workbook.Worksheets[0]
-#Create a new style
+
+#get the first worksheet
+sheet=workbook.Worksheets[0]
+
+#create a new style
 style = workbook.Styles.Add("newStyle")
 style.Font.FontName = "Calibri"
 style.Font.IsBold = True
 style.Font.Size = 15
 style.Font.Color = Color.get_CornflowerBlue()
-#Get "B5" cell
+
+#get "B5" cell
 range = sheet.Range["B5"]
 range.Text = "Welcome to use Spire.XLS"
 range.CellStyleName = style.Name
 range.AutoFitColumns()
-#Save to file
-workbook.SaveToFile(outputFile, ExcelVersion.Version2010)
+
+#save the file
+workbook.SaveToFile(outputFile, FileFormat.Version2013)
 workbook.Dispose()
+
+
