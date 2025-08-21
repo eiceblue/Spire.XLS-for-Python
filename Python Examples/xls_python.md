@@ -1,5 +1,3 @@
-# Python代码核心功能提取
-
 # Spire.XLS Python Create Excel with Multiple Sheets
 ## Create an Excel workbook with five sheets
 ```python
@@ -7741,4 +7739,5 @@ workbook.RejectAllTrackedChanges()
 ```
 
 ---
+
 
