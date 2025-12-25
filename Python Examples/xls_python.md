@@ -7739,5 +7739,515 @@ workbook.RejectAllTrackedChanges()
 ```
 
 ---
+# Find text by regex in Excel
+## Highlight cells matching regex pattern
+```python
+# Get the first worksheet
+sheet = workbook.Worksheets[0]
+
+# Find all cells matching the regex pattern ".*North."
+ranges = sheet.FindAllString(".*North.", False, False, True)
+
+# Highlight the matching cells
+for range in ranges:
+    # Highlight the cell range
+    range.Style.Color = Color.get_Yellow()
+```
+
+---
+
+# spire.xls get selection range
+## Extract information about active selection ranges in an Excel worksheet
+```python
+# Get the first worksheet
+sheet = workbook.Worksheets[0]
+
+# Get active selection ranges from the worksheet
+ranges = sheet.GetActiveSelectionRange()
+
+# Extract information about each range
+for range in ranges:
+    range_address = range.RangeAddressLocal
+    column_count = range.ColumnCount
+    column_width = range.ColumnWidth
+    column = range.Column
+    row_count = range.RowCount
+    row_height = range.RowHeight
+    row = range.Row
+```
+
+---
+
+# Goal Seek Functionality
+## Excel Goal Seek implementation to find input values that produce a desired result
+```python
+# Set value for cell "A1"
+sheet.Range["A1"].Value="100"
+
+# Set formula for cell "A2"
+target_cell = sheet.Range["A2"]
+target_cell.Formula="=SUM(A1+B1)"
+
+# Variable cell
+guess_cell = sheet.Range["B1"]
+
+goal_seek = GoalSeek()
+
+result = goal_seek.TryCalculate(target_cell, 500.0, guess_cell)
+result.Determine()
+```
+
+---
+
+# Excel Multi-level Sorting
+## Demonstrates different types of multi-level sorting in Excel worksheets
+```python
+# Loop through all worksheets in the workbook
+for i in range(0, workbook.Worksheets.Count):
+    # Get current worksheet by index
+    worksheet = workbook.Worksheets.get_Item(i)
+
+    # Sheet 0: Two-level sort based on cell values
+    if i == 0:
+        # Clear previous sort rules
+        workbook.DataSorter.SortColumns.Clear()
+        # Add first sort column: column 0 (A), sort by values in ascending order
+        workbook.DataSorter.SortColumns.Add(0, SortComparsionType.Values, OrderBy.Ascending)
+        # Add second sort column: column 1 (B), sort by values in descending order
+        workbook.DataSorter.SortColumns.Add(1, SortComparsionType.Values, OrderBy.Descending)
+        # Apply sorting to data
+        workbook.DataSorter.Sort(worksheet.AllocatedRange)
+
+    # Sheet 1: Sort by background color (move dark colors to bottom in column B, light colors to top in column C)
+    elif i == 1:
+        workbook.DataSorter.SortColumns.Clear()
+        # Sort column 1 (B) by background color, dark colors to bottom
+        workbook.DataSorter.SortColumns.Add(1, SortComparsionType.BackgroundColor, OrderBy.Bottom)
+        # Sort column 2 (C) by background color, light colors to top
+        workbook.DataSorter.SortColumns.Add(2, SortComparsionType.BackgroundColor, OrderBy.Top)
+        workbook.DataSorter.Sort(worksheet.AllocatedRange)
+
+    # Sheet 2: Sort by font color (light font to top in column B, dark font to bottom in column D)
+    elif i == 2:
+        workbook.DataSorter.SortColumns.Clear()
+        # Sort column 1 (B) by font color, light fonts to top
+        workbook.DataSorter.SortColumns.Add(1, SortComparsionType.FontColor, OrderBy.Top)
+        # Sort column 3 (D) by font color, dark fonts to bottom
+        workbook.DataSorter.SortColumns.Add(3, SortComparsionType.FontColor, OrderBy.Bottom)
+        workbook.DataSorter.Sort(worksheet.AllocatedRange)
+
+    # Sheet 3: Sort by conditional formatting icons (high icons to top in column F, low icons to bottom in column G)
+    elif i == 3:
+        workbook.DataSorter.SortColumns.Clear()
+        # Sort column 5 (F) by icon, high icons to top
+        workbook.DataSorter.SortColumns.Add(5, SortComparsionType.Icon, OrderBy.Top)
+        # Sort column 6 (G) by icon, low icons to bottom
+        workbook.DataSorter.SortColumns.Add(6, SortComparsionType.Icon, OrderBy.Bottom)
+        workbook.DataSorter.Sort(worksheet.AllocatedRange)
+
+    # Sheet 4: Multi-level sort (Value → BackgroundColor → FontColor → Icon)
+    elif i == 4:
+        workbook.DataSorter.SortColumns.Clear()
+        # First level: sort column 0 (A) by values in ascending order
+        workbook.DataSorter.SortColumns.Add(0, SortComparsionType.Values, OrderBy.Ascending)
+        # Second level: sort column 2 (C) by background color, dark to bottom
+        workbook.DataSorter.SortColumns.Add(2, SortComparsionType.BackgroundColor, OrderBy.Bottom)
+        # Third level: sort column 3 (D) by font color, dark to bottom
+        workbook.DataSorter.SortColumns.Add(3, SortComparsionType.FontColor, OrderBy.Bottom)
+        # Fourth level: sort column 5 (F) by icon, high icons to top
+        workbook.DataSorter.SortColumns.Add(5, SortComparsionType.Icon, OrderBy.Top)
+        workbook.DataSorter.Sort(worksheet.AllocatedRange)
+```
+
+---
+
+# Excel Font Replacement
+## Replace font style in Excel cells
+```python
+# Get the first worksheet
+sheet = workbook.Worksheets[0]
+
+# Create a new style with specific font properties
+newStyle = workbook.Styles.Add("newStyle")
+newStyle.Font.FontName = "Arial Black"
+newStyle.Font.Size = 14
+
+# Get a cell range and its style
+cellRange = sheet.Range["D9"]
+oldStyle = cellRange.Style
+
+# Replace text and style in the worksheet
+sheet.ReplaceAll("North America", oldStyle, "America", newStyle)
+```
+
+---
+
+# spire.xls image insertion
+## insert image into WPS cell
+```python
+# Create a workbook.
+workbook = Workbook()
+
+# Get the first worksheet
+sheet = workbook.Worksheets[0]
+
+# Create an image from a source
+image = Stream(image_source)
+
+# Add an image in a cell range
+sheet.Range["D1"].InsertOrUpdateCellImage(image,True)
+```
+
+---
+
+# spire.xls set global custom fonts
+## Set global custom font folders for Excel conversion
+```python
+# Set global custom font folders
+Workbook.SetGlobalCustomFontsFolders("\\font\\")
+```
+
+---
+
+# Excel to CSV Conversion
+## Convert Excel file to CSV format with double quotes for string values
+```python
+#Create a workbook.
+workbook = Workbook()
+
+# Load the Excel document from disk
+workbook.LoadFromFile(inputFile)
+
+# Setting the last parameter, addQuotationForStringValue, to true means that double quotes will be added.
+workbook.SaveToFile(outputFile, ",",True)
+
+workbook.Dispose()
+```
+
+---
+
+# Excel to PDF conversion with retained paper size
+## Convert Excel to PDF while preserving original paper size settings
+```python
+# Create an instance of the Workbook class
+book = Workbook()        
+
+# Set the SheetFitToPageRetainPaperSize property to True to ensure that when converting to PDF, 
+book.ConverterSetting.SheetFitToPageRetainPaperSize = True     
+```
+
+---
+
+# Excel to XLT Conversion
+## Convert Excel file to Excel template format
+```python
+inputFile = "Data/ConversionTemplate.xlsx"
+outputFile = "ToXLT.xlt"
+
+# Create a workbook.
+workbook = Workbook()
+
+# Load the workbook from the specified input file.
+workbook.LoadFromFile(inputFile)
+
+# Save the workbook to the specified output file with the specified file format (FileFormat::XLT).
+workbook.SaveToFile(outputFile, FileFormat.XLT)
+
+# Dispose of the workbook object to release resources.
+workbook.Dispose()
+```
+
+---
+
+# Excel to XLTM Conversion
+## Convert Excel file to XLTM (Excel Macro-Enabled Template) format
+```python
+inputFile = "Data/ConversionTemplate.xlsx"
+outputFile = "ToXltm.xltm"
+
+# Create a workbook.
+workbook = Workbook()
+
+# Load the workbook from the specified input file.
+workbook.LoadFromFile(inputFile)
+
+# Save the workbook to the specified output file with the specified file format (FileFormat.XLTM).
+workbook.SaveToFile(outputFile, FileFormat.XLTM)
+
+# Dispose of the workbook object to release resources.
+workbook.Dispose()
+```
+
+---
+
+# Excel to XLTX Conversion
+## Convert Excel file to XLTX template format
+```python
+inputFile = "Data/ConversionTemplate.xlsx"
+outputFile = "ToXltx.xltx"
+
+# Create a workbook.
+workbook = Workbook()
+
+# Load the workbook from the specified input file.
+workbook.LoadFromFile(inputFile)
+
+# Save the workbook to the specified output file with the specified file format (FileFormat.XLTX).
+workbook.SaveToFile(outputFile, FileFormat.XLTX)
+
+# Dispose of the workbook object to release resources.
+workbook.Dispose()
+```
+
+---
+
+# spire.xls get chartsheet count
+## Get the count of chartsheets in an Excel workbook
+```python
+# Get the count of the chartsheets 
+count = len(workbook.Chartsheets)
+```
+
+---
+
+# Excel Shapes to Image Conversion
+## Convert all shapes in an Excel worksheet to images
+```python
+# Get the first worksheet.
+sheet = workbook.Worksheets[0]
+
+# Get all shapes
+shapelist = SaveShapeTypeOption()
+shapelist.SaveAll = True
+
+# Save shapes to images
+images = sheet.SaveShapesToImage(shapelist)
+```
+
+---
+
+# Group shapes in Excel
+## Create and group geometric shapes in an Excel worksheet
+```python
+# Add shapes to the worksheet
+shape1 = sheet.PrstGeomShapes.AddPrstGeomShape(1, 3, 50, 50, PrstGeomShapeType.RoundRect)
+shape2 = sheet.PrstGeomShapes.AddPrstGeomShape(5, 3, 50, 50, PrstGeomShapeType.Triangle)
+groupShapeCollection = sheet.GetGroupShapeCollection() 
+groupShapeCollection.Group([shape1, shape2])
+```
+
+---
+
+# Excel Header and Footer with Image
+## Set image and text for header and footer on first page
+```python
+# Set the value to show the headers/footers for first page are different from the other pages.
+sheet.PageSetup.DifferentFirst = 1
+
+# Set image and text for first page header and footer
+sheet.PageSetup.SetFirstLeftHeaderImage(imageStream)
+sheet.PageSetup.SetFirstLeftFooterImage(imageStream)
+sheet.PageSetup.LeftHeader = "Demo of Spire.XLS"
+sheet.PageSetup.LeftFooter = "Footer by Spire.XLS"
+
+sheet.ViewMode = ViewMode.Layout
+```
+
+---
+
+# Excel Picture Hyperlink Extraction
+## Retrieve hyperlink address from a picture in Excel worksheet
+
+```python
+# Create a workbook instance
+workbook = Workbook()
+
+# Get the first worksheet in the workbook
+sheet = workbook.Worksheets.get_Item(0)
+
+# Get the first picture found in the worksheet
+picture = sheet.Pictures.get_Item(0)
+
+# Retrieve the hyperlink attached to the picture
+link = picture.GetHyperLink()
+
+# Extract the address (URL or file path) of the hyperlink
+address = link.Address
+```
+
+---
+
+# spire.xls get named range
+## Get the name of a named range from a cell range in Excel
+```python
+# Create a workbook.
+workbook = Workbook()
+
+# Get the first sheet
+sheet = workbook.Worksheets[0]
+
+# Get some cellRanges
+cellRange = sheet.Range["A2:D2"]
+
+# Get the named range object
+result = cellRange.GetNamedRange()
+```
+
+---
+
+# spire.xls OLE Objects
+## Get original document names of OLE objects from Excel sheet
+```python
+# Get the first sheet
+sheet = workbook.Worksheets[0]
+
+information = ""
+
+for ole in sheet.OleObjects:
+    # Obtain the original name of the document of the OLE object
+    ole_name = ole.OriginName
+    information += ole_name + "\r\n"
+```
+
+---
+
+# Set Excel Paper Size
+## Set paper size for Excel worksheet
+```python
+#Create a workbook.
+workbook = Workbook()
+
+#Get the first worksheet.
+sheet = workbook.Worksheets[0]
+
+#Set the paper size for the worksheet(e.g., PaperA0, PaperA1, PaperA3, PaperA4, etc.).
+sheet.PageSetup.PaperSize = PaperSizeType.PaperA4
+```
+
+---
+
+# Excel Pivot Table Column Field Filtering
+## Add label filter to pivot table column field
+```python
+# Get the sheet with pivot table
+sheet = workbook.Worksheets["PivotTable"]
+
+# Get the first pivot table
+pt = sheet.PivotTables[0]
+
+# Add label filter to the first column field
+pt.ColumnFields.get_Item(0).AddLabelFilter(PivotLabelFilterType.Equal, String("Brasilia"), None)
+pt.CalculateData()
+```
+
+---
+
+# spire.xls pivot table filter
+## add filter to row field in pivot table
+```python
+# Get the sheet with pivot table
+sheet = workbook.Worksheets["PivotTable"]
+
+# Get the first pivot table
+pt = sheet.PivotTables[0]
+
+# Get the first row field and add a filter to the row field
+pt.RowFields.get_Item(0).AddLabelFilter(PivotLabelFilterType.BeginWith,String("C"), None)
+pt.CalculateData()
+```
+
+---
+
+# spire.xls python pivot table
+## create group by value in pivot table
+```python
+# Get the first sheet
+sheet = workbook.Worksheets[0]
+
+# Access the first pivot table in the worksheet
+pt = sheet.PivotTables.get_Item(0)
+
+pivotField = pt.PivotFields["number"]
+pivotField.CreateGroup(3000, 3800, 1)
+pt.CalculateData()
+```
+
+---
+
+# spire.xls pivot table custom field names
+## customize pivot table field names in Excel
+```python
+# Get the sheet in which the pivot table is located
+sheet = workbook.Worksheets["PivotTable"]
+
+# Access the first pivot table in the worksheet
+pt = sheet.PivotTables.get_Item(0)
+
+# Set a custom name for the column field
+pt.ColumnFields[0].CustomName = "custom_colName"
+
+# Set a custom name for the data field
+pt.DataFields[0].CustomName = "custom_DataName"
+
+# Calculate the pivot table data
+pt.CalculateData()
+```
+
+---
+
+# spire.xls repeat item labels
+## Set repeat all item labels for pivot tables
+```python
+# Create a workbook.
+workbook = Workbook()
+
+# Get the sheet where the pivot table is located.
+sheet = workbook.Worksheets["PivotTable"]
+
+# Traverse the PivotTable and set options.
+for pt in sheet.PivotTables:
+    pt.Options.RepeatAllItemLabels(True)
+```
+
+---
+
+# Add Report Filter to Pivot Table
+## This code demonstrates how to add a report filter to a pivot table in an Excel file.
+```python
+# Access the first Pivot Table in the worksheet
+pt = sheet.PivotTables[0]
+# create a report filter for the field "Product"
+reportFilter = PivotReportFilter("Product", True)
+# Add the report filter to the pivot table
+pt.ReportFilters.Add(reportFilter)
+```
+
+---
+
+# Move Chart Sheets in Excel
+## Demonstrates how to move chart sheets within an Excel workbook
+```python
+# Create a workbook
+workbook = Workbook()
+
+# Move chart worksheets
+workbook.Chartsheets[0].MoveSheet(2)
+workbook.Chartsheets[0].MoveChartsheet(0)
+```
+
+---
+
+# spire.xls prohibit DTD
+## Set workbook to prohibit DTD processing
+```python
+# Create a workbook
+workbook = Workbook()
+
+# Prohibit DTD
+workbook.ProhibitDtd = True
+```
+
+---
+
 
 
