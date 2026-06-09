@@ -8249,5 +8249,70 @@ workbook.ProhibitDtd = True
 
 ---
 
+# spire.xls python DeleteDuplicateRows  
+## Delete duplicate rows in Excel worksheet  
+```python
+#Create a workbook.
+workbook = Workbook()
+#Get the first worksheet.
+sheet = workbook.Worksheets.get_Item(0)
+# Remove duplicate rows from the sheet
+sheet.RemoveDuplicates()
+```
+
+---
+
+# Spire.XLS Python conversion
+## Convert Markdown to Excel
+```python
+# Create a new workbook
+workbook = Workbook()
+
+# Load the markdown file
+workbook.LoadFromMarkdown(inputFile)
+
+# Save the workbook as Excel
+workbook.SaveToFile(outputFile, ExcelVersion.Version2010)
+workbook.Dispose()
+```
+
+---
+
+# spire.xls python core function
+## Export workbook to Markdown format with custom options (saving images with relative paths and hyperlinks as references)
+```python
+inputFile = "./Demos/Data/ToMarkdownExportOptions.xlsx"
+outputFile = "ToMarkdownExportOptions_out.md"
+
+# Create a new workbook
+workbook = Workbook()
+
+# Load the document
+workbook.LoadFromFile(inputFile)
+
+# Create export options for Markdown format
+markdownOptions = MarkdownOptions()
+# Set whether to save images with relative paths
+markdownOptions.SavePicInRelativePath = True
+# Set whether to save hyperlinks as Markdown reference format
+markdownOptions.SaveHyperlinkAsRef = True
+
+# Save the workbook as Markdown with the specified options
+workbook.SaveToMarkdown(outputFile, markdownOptions)
+workbook.Dispose()
+```
+
+---
+
+# spire.xls python core function
+## Hide PivotTable Field List panel
+```python
+# Create a workbook and hide the PivotTable field list panel
+workbook = Workbook()
+workbook.HidePivotFieldList = True
+```
+
+---
+
 
 
